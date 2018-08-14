@@ -1,0 +1,1 @@
+insert into vehiculos (placa, cilindraje) values ('DKX16E',150);
