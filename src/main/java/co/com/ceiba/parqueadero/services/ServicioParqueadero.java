@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.ceiba.parqueadero.domain.Vigilante;
-import co.com.ceiba.parqueadero.entities.ParqueaderoEntity;
+import co.com.ceiba.parqueadero.model.Parqueadero;
 import co.com.ceiba.parqueadero.repository.RepositorioParqueadero;
 
 @Service
@@ -27,8 +27,12 @@ public class ServicioParqueadero implements IServicioParqueadero {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ParqueaderoEntity> consultarParqueaderos() {	
-		return (List<ParqueaderoEntity>) vigilante.consultarParqueaderos();
+	public List<Parqueadero> consultarParqueaderos() {	
+		return (List<Parqueadero>) vigilante.consultarParqueaderos();
+	}
+
+	public String ingresarVehiculo() {
+		return vigilante.ingresarVehiculo()
 	}
 
 }
