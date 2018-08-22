@@ -29,6 +29,7 @@ public class Vigilante {
 	private int cilindrajeMoto;
 	private int adicionalMoto;
 	private int limiteDia;
+	private static final int HORASDIA = 24;
 	
 	ParqueaderoEntity parqueaderoEntity;
 			
@@ -113,11 +114,11 @@ public class Vigilante {
 		double valorDias, valorHoras = 0;
 		int tarifaDia,tarifaHora, valorAdicional = 0;
 		int cantidadHoras = tiempoServicio(registro);
-		double diasHoras = cantidadHoras/24;
+		double diasHoras = (double)cantidadHoras/HORASDIA;
 		double horas = diasHoras % 1;
 		double dias = diasHoras - horas;
-		horas = horas * 24;
-		if(horas > limiteDia) {
+		horas = horas * HORASDIA;
+		if(horas >= limiteDia) {
 			horas = 0;
 			dias += 1;
 		}		
