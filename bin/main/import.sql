@@ -1,1 +1,1 @@
---insert into parqueaderos (placa,tipo,cilindraje,fechaIngreso,fechasalida) values ('DKX16E',1,150,'2018-08-15','2018-08-15');
+insert into parqueaderos (placa,tipo,cilindraje,fecha_ingreso,fecha_salida) values ('DKX16E',1,150, {ts '2018-08-21 19:00:00.00'}, null);

@@ -10,8 +10,8 @@ public class Parqueadero {
 	private int cilindraje;
 	private Date fechaingreso;
 	private Date fechasalida;
-	
-	
+	private int valor;
+		
 	public String getPlaca() {
 		return placa;
 	}
@@ -47,6 +47,12 @@ public class Parqueadero {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getValor() {
+		return valor;
+	}
+	public void setValor(int valor) {
+		this.valor = valor;
 	}
 
 }

@@ -22,6 +22,15 @@ public class ServicioParqueadero implements IServicioParqueadero {
 	@PostConstruct
 	public void InicializacionRepositorio () {
 		vigilante = new Vigilante(repositorio);
+		vigilante.setMaxCarros(2);
+		vigilante.setMaxMotos(1);
+		vigilante.setHoraCarro(1000);
+		vigilante.setHoraMoto(500);
+		vigilante.setDiaCarro(8000);
+		vigilante.setDiaMoto(4000);
+		vigilante.setCilindrajeMoto(500);
+		vigilante.setAdicionalMoto(2000);
+		vigilante.setLimiteDia(9);
 	}	
 
 	@Override

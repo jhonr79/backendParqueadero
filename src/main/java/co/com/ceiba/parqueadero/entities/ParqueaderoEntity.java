@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 @Table(name = "parqueaderos")
 //@SelectBeforeUpdate(true)
@@ -22,10 +24,12 @@ public class ParqueaderoEntity implements Serializable {
 	private String placa;
 	private int tipo;
 	private int cilindraje;
-	@Column(name = "fecha_ingreso")
+	@Column(name = "fecha_ingreso",columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date fechaIngreso;
 	@Column(name = "fecha_salida", nullable = true)
 	private Date fechaSalida;
+	@ColumnDefault("0")
+	private int valor;
 
 	public String getPlaca() {
 		return placa;
@@ -73,6 +77,14 @@ public class ParqueaderoEntity implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getValor() {
+		return valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
 	}
 
 }
