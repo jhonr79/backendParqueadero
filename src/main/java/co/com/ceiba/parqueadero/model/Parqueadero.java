@@ -4,11 +4,14 @@ import java.util.Date;
 
 public class Parqueadero {
 	
+	private int id;
 	private String placa;
 	private int tipo;
 	private int cilindraje;
 	private Date fechaingreso;
 	private Date fechasalida;
+	
+	
 	public String getPlaca() {
 		return placa;
 	}
@@ -38,6 +41,12 @@ public class Parqueadero {
 	}
 	public void setFechasalida(Date fechasalida) {
 		this.fechasalida = fechasalida;
+	}
+	public Integer getId() {
+		return this.id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

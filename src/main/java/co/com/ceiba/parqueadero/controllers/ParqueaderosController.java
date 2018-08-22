@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,18 +24,20 @@ public class ParqueaderosController {
 	private ServicioParqueadero servicioParqueadero;
 	
 	@GetMapping("/vehiculos")
+	@ResponseStatus(HttpStatus.OK)
 	public List<Parqueadero> index() {
 		return servicioParqueadero.consultarParqueaderos();
 	}
 	
 	@PostMapping("/ingresarVehiculo")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String registrarVehiculo(@RequestBody Parqueadero p) {
-		return servicioParqueadero.ingresarVehiculo();
+	public Parqueadero ingresarVehiculo(@RequestBody Parqueadero p) {
+		return servicioParqueadero.ingresarVehiculo(p);
 	}
 	
-	@PutMapping("/actualizaregistro/{id}")
-	public Parqueadero salidaVehiculo(@RequestBody Parqueadero p, @PathVariable Long id) {
-		return servicioParqueadero.ingresarVehiculo();
+	@PutMapping("/salidaVehiculo/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Parqueadero salidaVehiculo(/*@RequestBody Parqueadero p*/ @PathVariable int id) {
+		return servicioParqueadero.salidaVehiculo(id);
 	}
 }

@@ -1,1 +1,1 @@
-insert into parqueaderos (placa,tipo,cilindraje,fechaIngreso,fechasalida) values ('DKX16E',1,150,'2018-08-15','2018-08-15');
+--insert into parqueaderos (placa,tipo,cilindraje,fechaIngreso,fechasalida) values ('DKX16E',1,150,'2018-08-15','2018-08-15');
