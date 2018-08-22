@@ -3,9 +3,9 @@ package co.com.ceiba.parqueadero.domain;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import co.com.ceiba.parqueadero.entities.ParqueaderoEntity;
 import co.com.ceiba.parqueadero.exception.ParqueaderoException;
@@ -38,10 +38,24 @@ public class Vigilante {
 		if(existe(p)) {
 			throw new ParqueaderoException("El vehiculo que esta intentando ingresar ya se encuentra registrado sin salida");
 		}
+		if(!validarPlaca(p)) {
+			throw new ParqueaderoException("Las placas que inician por la letra A solo pueden ingresar al parqueadero los días Domingo y Lunes, no esta autorizado el ingreso");
+		}
 		validarEspacio(p);		
 		return dto.entityDto(repositorio.save(dto.dtoEntity(p)));		
 	}
 	
+	private boolean validarPlaca(Parqueadero p) {
+		if(p.getPlaca().toUpperCase().charAt(0) == 'A') {
+			Calendar c = Calendar.getInstance();
+			//c.set(2018,7,20);
+			if(c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || c.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public Boolean existe(Parqueadero p) {
 		if(repositorio.findByPlacaAndFechaSalidaNull(p.getPlaca()) == null) {
 			return false;
