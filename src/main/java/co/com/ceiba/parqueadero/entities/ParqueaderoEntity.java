@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -30,6 +31,11 @@ public class ParqueaderoEntity implements Serializable {
 	private Date fechaSalida;
 	@ColumnDefault("0")
 	private int valor;
+	
+	@PrePersist
+	public void prePersist() {
+		fechaIngreso = new Date();
+	}
 
 	public String getPlaca() {
 		return placa;

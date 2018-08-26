@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.ceiba.parqueadero.model.Parqueadero;
 import co.com.ceiba.parqueadero.services.ServicioParqueadero;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api")
 public class ParqueaderosController {
@@ -29,13 +31,13 @@ public class ParqueaderosController {
 		return servicioParqueadero.consultarParqueaderos();
 	}
 	
-	@PostMapping("/ingresarVehiculo")
+	@PostMapping("/ingresar-vehiculo")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Parqueadero ingresarVehiculo(@RequestBody Parqueadero p) {
 		return servicioParqueadero.ingresarVehiculo(p);
 	}
 	
-	@PutMapping("/salidaVehiculo/{id}")
+	@PutMapping("/salida-vehiculo/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Parqueadero salidaVehiculo(/*@RequestBody Parqueadero p*/ @PathVariable int id) {
 		return servicioParqueadero.salidaVehiculo(id);

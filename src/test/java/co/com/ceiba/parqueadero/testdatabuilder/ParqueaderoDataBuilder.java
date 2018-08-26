@@ -1,8 +1,17 @@
-package co.com.ceiba.parqueadero.model;
+package co.com.ceiba.parqueadero.testdatabuilder;
 
 import java.util.Date;
 
-public class Parqueadero {
+import co.com.ceiba.parqueadero.model.Parqueadero;
+
+public class ParqueaderoDataBuilder {
+	private static final int ID = (int) 1;
+	private static final String PLACA = "DKX16E";
+	private static final int TIPO = 1;
+	private static final int CILINDRAJE = 200;
+	private static final Date FECHA_INGRESO = new Date();
+	private static final Date FECHA_SALIDA = new Date();
+	private static final int VALOR = 2500;
 	
 	private int id;
 	private String placa;
@@ -12,20 +21,21 @@ public class Parqueadero {
 	private Date fechasalida;
 	private int valor;
 	
-	public Parqueadero() {
-		
+	public ParqueaderoDataBuilder() {
+		this.id = ID;
+		this.placa = PLACA;
+		this.tipo = TIPO;
+		this.cilindraje = CILINDRAJE;
+		this.tipo = TIPO;
+		this.valor = VALOR;
+		this.fechaingreso = FECHA_INGRESO;
+		this.fechasalida = FECHA_SALIDA;
+	}
+	
+	public Parqueadero build() {
+		return new Parqueadero(this.id,this.placa,this.cilindraje,this.tipo,this.fechaingreso,this.fechasalida,this.valor);
 	}
 		
-	public Parqueadero(int id, String placa, int cilindraje, int tipo, Date fechaingreso, Date fechasalida,
-			int valor) {
-		this.id = id;
-		this.placa = placa;
-		this.cilindraje = cilindraje;
-		this.tipo = tipo;
-		this.fechaingreso = fechaingreso;
-		this.fechasalida = fechasalida;
-	}
-
 	public String getPlaca() {
 		return placa;
 	}
@@ -44,6 +54,7 @@ public class Parqueadero {
 	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
+	
 	public Date getFechaingreso() {
 		return fechaingreso;
 	}
@@ -56,12 +67,14 @@ public class Parqueadero {
 	public void setFechasalida(Date fechasalida) {
 		this.fechasalida = fechasalida;
 	}
+	
 	public Integer getId() {
 		return this.id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getValor() {
 		return valor;
 	}

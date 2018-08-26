@@ -94,12 +94,10 @@ public class Vigilante {
 		if(!existe(registro)) {
 			throw new ParqueaderoException("El vehiculo que esta intentando registrar para salida no fue ingresado");
 		}
-		Instant instant = LocalDateTime.now().toInstant(ZoneOffset.UTC);
-	    Date date = Date.from(instant);		
-	    registro.setFechasalida(date);
-	    
+		Calendar c = Calendar.getInstance();
+		Date date = c.getTime();
+		registro.setFechasalida(date);
 	    calcularValor(registro);
-	    
 		ParqueaderoEntity entity = dto.dtoEntity(registro);
 		if(registro.getTipo() == 1) {
 			maxCarros += 1;
