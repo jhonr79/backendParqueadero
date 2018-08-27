@@ -1,18 +1,39 @@
 package co.com.ceiba.parqueadero.unitarias;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import co.com.ceiba.parqueadero.controllers.ParqueaderosController;
+import co.com.ceiba.parqueadero.domain.Vigilante;
+import co.com.ceiba.parqueadero.exception.ParqueaderoException;
 import co.com.ceiba.parqueadero.model.Parqueadero;
+import co.com.ceiba.parqueadero.repository.RepositorioParqueadero;
 import co.com.ceiba.parqueadero.testdatabuilder.ParqueaderoDataBuilder;
 
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class VigilanteTest {
+	
+	@Autowired
+	ParqueaderosController parqueaderoCtr;
+	
+	@Autowired
+	private RepositorioParqueadero repo;
+	private Vigilante vigilante;
+	private ParqueaderoDataBuilder builder;
+	private Parqueadero parqueadero;
+	
 	//private LocalDate fechasalida;
 	private static final int ID = (int) 1;
 	private static final String PLACA = "DKX16E";
@@ -22,20 +43,26 @@ public class VigilanteTest {
 	private static final Date FECHA_SALIDA = new GregorianCalendar(2018, 8, 27, 5, 0, 0).getTime();
 	private static final int VALOR = 2500;
 	
+	@Before
+	public void initTest() {
+		//repo = mock(RepositorioParqueadero.class);
+		vigilante = new Vigilante(repo);
+		builder =  new ParqueaderoDataBuilder();
+		parqueadero = new Parqueadero();
+	}
+	
 	@Test
-	public void crearParqueadero () {
+	public void testCrearParqueadero () {
 		/*
 		fechasalida.plusDays(1);
 		java.sql.Date.valueOf(fechasalida);
 		*/
 		
-		ParqueaderoDataBuilder builder = new ParqueaderoDataBuilder();
-		builder.setPlaca(PLACA);
-		builder.setCilindraje(CILINDRAJE);
-		builder.setTipo(TIPO);
-		builder.setFechaingreso(FECHA_INGRESO);
-		builder.setFechasalida(FECHA_SALIDA);
-		builder.setValor(VALOR);
+		ParqueaderoDataBuilder builder = new ParqueaderoDataBuilder().conPlaca(PLACA).conCilindraje(CILINDRAJE);
+		builder.conTipo(TIPO);
+		builder.conFechaingreso(FECHA_INGRESO);
+		builder.conFechasalida(FECHA_SALIDA);
+		builder.conValor(VALOR);
 		
 		Parqueadero parqueadero = builder.build();
 		
@@ -50,26 +77,44 @@ public class VigilanteTest {
 		int resultadoEsperado = 2;
 		assertTrue(suma == resultadoEsperado);
 		*/
-	}
-
-	@Test
-	public void testIngresarVehiculo() {
-		fail("Not yet implemented");
+		int valorEsperado = 4;
+		int resultado = parqueaderoCtr.index().size();
+		assertEquals(resultado, valorEsperado);
 	}
 
 	@Test
 	public void testExiste() {
-		fail("Not yet implemented");
+		parqueadero = new Parqueadero();
+		builder = new ParqueaderoDataBuilder();
+		boolean existe = true;
+		parqueadero = builder.conPlaca("DKX16A").conFechasalida(null).build();
+		assertEquals(existe, vigilante.existe(parqueadero));
 	}
 
-	@Test
+	@Test(expected = ParqueaderoException.class)
 	public void testValidarEspacio() {
-		fail("Not yet implemented");
+		parqueadero = new Parqueadero();
+		parqueadero = builder.conTipo(1).build();
+		vigilante.setMaxCarros(0);
+		vigilante.validarEspacio(parqueadero);
+	}	
+	
+	
+	@Test
+	public void testIngresarVehiculo() {
+		//parqueadero = new Parqueadero();
+		//builder = new ParqueaderoDataBuilder();
+		parqueadero = builder.conId(5).conPlaca("DKX16H").conCilindraje(100).conFechasalida(null).build();	
+		Parqueadero resultado = parqueaderoCtr.ingresarVehiculo(parqueadero);
+		assertNotNull(resultado);
 	}
+	
 
 	@Test
 	public void testSalidaVehiculo() {
-		fail("Not yet implemented");
+		//parqueadero = builder.conPlaca("DKX16E").conFechasalida(null).build();	
+		Parqueadero resultado = parqueaderoCtr.salidaVehiculo(1);
+		assertNotNull(resultado);
 	}
 
 }
