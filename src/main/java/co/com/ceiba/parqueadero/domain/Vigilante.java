@@ -1,20 +1,17 @@
 package co.com.ceiba.parqueadero.domain;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import co.com.ceiba.parqueadero.dto.DTO;
 import co.com.ceiba.parqueadero.entities.ParqueaderoEntity;
 import co.com.ceiba.parqueadero.exception.ParqueaderoException;
 import co.com.ceiba.parqueadero.model.Parqueadero;
 import co.com.ceiba.parqueadero.repository.RepositorioParqueadero;
-import co.com.ceiba.parqueadero.dto.DTO;
 
 public class Vigilante {
 	
@@ -31,6 +28,7 @@ public class Vigilante {
 	private int limiteDia;
 	private static final int HORASDIA = 24;
 	
+	@Autowired
 	ParqueaderoEntity parqueaderoEntity;
 			
 	public Vigilante(RepositorioParqueadero repositorio) {
