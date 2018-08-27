@@ -13,19 +13,21 @@ import co.com.ceiba.parqueadero.model.Parqueadero;
 import co.com.ceiba.parqueadero.testdatabuilder.ParqueaderoDataBuilder;
 
 public class VigilanteTest {
-	private LocalDate fechasalida;
+	//private LocalDate fechasalida;
 	private static final int ID = (int) 1;
 	private static final String PLACA = "DKX16E";
 	private static final int TIPO = 1;
 	private static final int CILINDRAJE = 200;
-	private static final Date FECHA_INGRESO = new GregorianCalendar(2018, 8, 26).getTime();
-	private static final Date FECHA_SALIDA = new Date();
+	private static final Date FECHA_INGRESO = new GregorianCalendar(2018, 8, 26, 0, 0, 0).getTime();
+	private static final Date FECHA_SALIDA = new GregorianCalendar(2018, 8, 27, 5, 0, 0).getTime();
 	private static final int VALOR = 2500;
 	
 	@Test
 	public void crearParqueadero () {
+		/*
 		fechasalida.plusDays(1);
 		java.sql.Date.valueOf(fechasalida);
+		*/
 		
 		ParqueaderoDataBuilder builder = new ParqueaderoDataBuilder();
 		builder.setPlaca(PLACA);
@@ -40,11 +42,14 @@ public class VigilanteTest {
 		assertEquals(PLACA, parqueadero.getPlaca());
 	}
 
+	//not null, null
 	@Test
 	public void testConsultarParqueaderos() {
+		/*
 		int suma = 1+1;
 		int resultadoEsperado = 2;
 		assertTrue(suma == resultadoEsperado);
+		*/
 	}
 
 	@Test
