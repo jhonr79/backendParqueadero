@@ -68,6 +68,26 @@ public class VigilanteTest {
 		
 		assertEquals(PLACA, parqueadero.getPlaca());
 	}
+	
+	@Test
+	public void ingresarVehiculoExistente() {
+		try {
+		parqueadero = builder.conId(1).conPlaca("DKX16E").conFechasalida(null).build();	
+		parqueaderoCtr.ingresarVehiculo(parqueadero);
+		} catch (Exception e) {
+			assertEquals("El vehiculo que esta intentando ingresar ya se encuentra registrado sin salida", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void ingresarVehiculoPlacaA() {
+		try {
+		parqueadero = builder.conId(7).conPlaca("AKX16E").conFechasalida(null).build();	
+		parqueaderoCtr.ingresarVehiculo(parqueadero);
+		} catch (Exception e) {
+			assertEquals("Las placas que inician por la letra A solo pueden ingresar al parqueadero los días Domingo y Lunes, no esta autorizado el ingreso", e.getMessage());
+		}
+	}
 
 
 	@Test
@@ -92,12 +112,24 @@ public class VigilanteTest {
 	}
 
 	@Test(expected = ParqueaderoException.class)
-	public void testValidarEspacio() {
+	public void testValidarEspacioCarros() {
 		parqueadero = new Parqueadero();
 		parqueadero = builder.conTipo(1).build();
 		vigilante.setMaxCarros(0);
 		vigilante.validarEspacio(parqueadero);
 	}	
+	
+	@Test
+	public void testValidarEspacioMotos() {
+		try {
+		parqueadero = new Parqueadero();
+		parqueadero = builder.conTipo(2).build();
+		vigilante.setMaxMotos(0);
+		vigilante.validarEspacio(parqueadero);
+		} catch (Exception e) {
+			assertEquals("No hay cupo para motos", e.getMessage());
+		}
+	}
 	
 	
 	@Test
@@ -115,6 +147,17 @@ public class VigilanteTest {
 		//parqueadero = builder.conPlaca("DKX16E").conFechasalida(null).build();	
 		Parqueadero resultado = parqueaderoCtr.salidaVehiculo(1);
 		assertNotNull(resultado);
+	}
+	
+	@Test
+	public void testSalidaVehiculoNoIngresado() {
+		try {
+		//parqueadero = builder.conPlaca("DKX16E").conFechasalida(null).build();	
+		Parqueadero resultado = parqueaderoCtr.salidaVehiculo(1);
+		assertNotNull(resultado);
+		} catch (Exception e) {
+			assertEquals("El vehiculo que esta intentando registrar para salida no fue ingresado", e.getMessage());
+		}
 	}
 
 }
