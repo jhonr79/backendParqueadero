@@ -69,7 +69,7 @@ public class VigilanteTest {
 		assertEquals(PLACA, parqueadero.getPlaca());
 	}
 
-	//not null, null
+
 	@Test
 	public void testConsultarParqueaderos() {
 		/*
