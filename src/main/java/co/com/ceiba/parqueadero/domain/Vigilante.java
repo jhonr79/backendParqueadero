@@ -72,6 +72,11 @@ public class Vigilante {
 	}
 	
 	public void validarEspacio(Parqueadero p) {
+		
+		//Cupo cupo = FactoryCupos.getCupoPorVahiculo(p.getTipo());
+		
+			
+		
 		if(p.getTipo() == 1) {
 			if(maxCarros != 0) {
 				maxCarros -= 1;				
